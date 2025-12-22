@@ -1,6 +1,6 @@
 [package]
 name = "swiftsc-lsp"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 authors = ["SwiftSC-Lang Contributors"]
 description = "Language Server Protocol implementation for SwiftSC-Lang"
