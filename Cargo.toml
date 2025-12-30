@@ -8,6 +8,7 @@ license = "MIT"
 repository = "https://github.com/swiftsc-lang/swiftsc-lsp"
 
 [dependencies]
+swiftsc-frontend = { version = "1.0.2-beta", path = "../swiftsc-compiler/frontend" }
 tower-lsp = "0.20"
 tokio = { version = "1", features = ["full"] }
 serde = { version = "1.0", features = ["derive"] }
