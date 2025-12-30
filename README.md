@@ -1,31 +1,19 @@
-# SwiftSC-Lang LSP (Language Server Protocol)
+# 💻 SwiftSC LSP
 
-This directory is reserved for the LSP server implementation.
+![Version](https://img.shields.io/badge/version-1.0.2--beta-blue)
 
-> **Status:** v1.0 has basic implementation. Full IDE integration coming in v2.0.
+Language Server Protocol (LSP) implementation for SwiftSC, providing IDE features like autocomplete and error highlighting.
 
-## Current Status
+## 🚀 Features
 
-LSP is documented but not yet implemented. See `/docs/lsp.md`.
+- **Diagnostic Reporting**: Real-time error and warning reporting.
+- **Go to Definition**: Navigate through your contract and modules.
+- **Symbol Completion**: Autocomplete for variables, functions, and types.
 
-## Planned Features
+## 🤝 Contributing
 
-- Code completion
-- Go to definition
-- Hover information
-- Real-time diagnostics
-- Refactoring support
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-## Editor Support
+## 📄 License
 
-- VSCode
-- Vim/Neovim
-- Emacs
-- IntelliJ
-
-## Implementation
-
-Future LSP server will integrate with:
-- Compiler frontend for parsing
-- Semantic analyzer for type information
-- Security analyzer for warnings
+MIT
