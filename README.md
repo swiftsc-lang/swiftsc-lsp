@@ -1,6 +1,6 @@
 # 💻 SwiftSC LSP
 
-![Version](https://img.shields.io/badge/version-1.0.2--beta-blue)
+![Version](https://img.shields.io/badge/version-1.0.3--beta-blue)
 
 Language Server Protocol (LSP) implementation for SwiftSC, providing IDE features like autocomplete and error highlighting.
 
