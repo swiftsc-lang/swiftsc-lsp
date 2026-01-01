@@ -31,6 +31,13 @@ jobs:
         repository: swiftsc-lang/swiftsc-runtime
         path: swiftsc-runtime
 
+    - name: Checkout swiftsc-analyzer (dependency)
+      if: github.event.repository.name != 'swiftsc-analyzer'
+      uses: actions/checkout@v3
+      with:
+        repository: swiftsc-lang/swiftsc-analyzer
+        path: swiftsc-analyzer
+
     - name: Install Rust
       uses: actions-rs/toolchain@v1
       with:
