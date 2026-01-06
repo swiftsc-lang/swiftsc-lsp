@@ -97,10 +97,22 @@ impl SCLanguageServer {
                 for warning in security_analyzer.get_warnings() {
                     let message = warning.message();
                     let span = match warning {
-                        swiftsc_analyzer::security::SecurityWarning::PotentialReentrancy { span, .. } => span,
-                        swiftsc_analyzer::security::SecurityWarning::UninitializedVariable { span, .. } => span,
-                        swiftsc_analyzer::security::SecurityWarning::UncheckedArithmetic { span, .. } => span,
-                        swiftsc_analyzer::security::SecurityWarning::PotentialOverflow { span, .. } => span,
+                        swiftsc_analyzer::security::SecurityWarning::PotentialReentrancy {
+                            span,
+                            ..
+                        } => span,
+                        swiftsc_analyzer::security::SecurityWarning::UninitializedVariable {
+                            span,
+                            ..
+                        } => span,
+                        swiftsc_analyzer::security::SecurityWarning::UncheckedArithmetic {
+                            span,
+                            ..
+                        } => span,
+                        swiftsc_analyzer::security::SecurityWarning::PotentialOverflow {
+                            span,
+                            ..
+                        } => span,
                     };
 
                     let (line, col) = span.to_lsp_pos();
@@ -121,7 +133,10 @@ impl SCLanguageServer {
                     swiftsc_frontend::parser::ParseError::UnexpectedToken(token, span) => {
                         (format!("Unexpected token: {:?}", token), span)
                     }
-                    _ => (format!("Parser Error: {:?}", e), swiftsc_frontend::ast::Span::new(1, 1)),
+                    _ => (
+                        format!("Parser Error: {:?}", e),
+                        swiftsc_frontend::ast::Span::new(1, 1),
+                    ),
                 };
 
                 let (line, col) = span.to_lsp_pos();
