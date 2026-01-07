@@ -95,30 +95,29 @@ impl SCLanguageServer {
                 security_analyzer.analyze_program(&program);
 
                 for warning in security_analyzer.get_warnings() {
-                    let message = match warning {
+                    let message = warning.message();
+                    let span = match warning {
                         swiftsc_analyzer::security::SecurityWarning::PotentialReentrancy {
-                            location,
-                        } => {
-                            format!("Potential Reentrancy: {}", location)
-                        }
+                            span,
+                            ..
+                        } => span,
                         swiftsc_analyzer::security::SecurityWarning::UninitializedVariable {
-                            name,
-                        } => {
-                            format!("Uninitialized Storage: {}", name)
-                        }
+                            span,
+                            ..
+                        } => span,
                         swiftsc_analyzer::security::SecurityWarning::UncheckedArithmetic {
-                            operation,
-                        } => {
-                            format!(
-                                "Unchecked Arithmetic operation: {}. Consider using SafeMath.",
-                                operation
-                            )
-                        }
-                        _ => format!("{:?}", warning),
+                            span,
+                            ..
+                        } => span,
+                        swiftsc_analyzer::security::SecurityWarning::PotentialOverflow {
+                            span,
+                            ..
+                        } => span,
                     };
 
+                    let (line, col) = span.to_lsp_pos();
                     diagnostics.push(Diagnostic {
-                        range: Range::new(Position::new(0, 0), Position::new(0, 1)), // Placeholder range
+                        range: Range::new(Position::new(line, col), Position::new(line, col + 1)),
                         severity: Some(DiagnosticSeverity::WARNING),
                         message,
                         source: Some("SwiftSC Security".to_string()),
@@ -127,10 +126,24 @@ impl SCLanguageServer {
                 }
             }
             Err(e) => {
+                let (message, span) = match e {
+                    swiftsc_frontend::parser::ParseError::Expected(expected, found, span) => {
+                        (format!("Expected {}, found {:?}", expected, found), span)
+                    }
+                    swiftsc_frontend::parser::ParseError::UnexpectedToken(token, span) => {
+                        (format!("Unexpected token: {:?}", token), span)
+                    }
+                    _ => (
+                        format!("Parser Error: {:?}", e),
+                        swiftsc_frontend::ast::Span::new(1, 1),
+                    ),
+                };
+
+                let (line, col) = span.to_lsp_pos();
                 diagnostics.push(Diagnostic {
-                    range: Range::new(Position::new(0, 0), Position::new(0, 1)), // Placeholder range
+                    range: Range::new(Position::new(line, col), Position::new(line, col + 1)),
                     severity: Some(DiagnosticSeverity::ERROR),
-                    message: format!("Parser Error: {:?}", e),
+                    message,
                     source: Some("SwiftSC Parser".to_string()),
                     ..Default::default()
                 });

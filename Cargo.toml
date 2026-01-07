@@ -1,6 +1,6 @@
 [package]
 name = "swiftsc-lsp"
-version = "1.0.3-beta"
+version = "1.0.3"
 edition = "2021"
 authors = ["SwiftSC-Lang Contributors"]
 description = "Language Server Protocol implementation for SwiftSC-Lang"
@@ -8,8 +8,8 @@ license = "MIT"
 repository = "https://github.com/swiftsc-lang/swiftsc-lsp"
 
 [dependencies]
-swiftsc-frontend = { version = "1.0.3-beta", path = "../swiftsc-compiler/frontend" }
-swiftsc-analyzer = { version = "1.0.3-beta", path = "../swiftsc-analyzer" }
+swiftsc-frontend = { version = "1.0.3", path = "../swiftsc-compiler/frontend" }
+swiftsc-analyzer = { version = "1.0.3", path = "../swiftsc-analyzer" }
 tower-lsp = "0.20"
 tokio = { version = "1", features = ["full"] }
 serde = { version = "1.0", features = ["derive"] }
